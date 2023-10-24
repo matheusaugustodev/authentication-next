@@ -1,9 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Navbar from './components/Navbar/Navbar'
+import Navbar from '@/components/Navbar/Navbar'
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from '@/components/ui/toaster'
+import Provider from '@/components/Provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,17 +21,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
         <body className='bg-zinc-950'>
-          <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-            <Navbar/>
-            <hr className='white'/>
-            {children}
-            <Toaster />
-          </ThemeProvider>
+            <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+                >
+              <Provider>
+                <Navbar/>
+                <hr className='white'/>
+                  {children}
+                <Toaster />
+              </Provider>
+            </ThemeProvider>
         </body>
     </html>
   )

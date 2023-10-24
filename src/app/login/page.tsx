@@ -1,27 +1,27 @@
 "use client";
-import React, { useState } from "react";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
 
-export default function Login() {
-  const [showSignUp, setShowSignUp] = useState(false);
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import SignIn from "../components/signin/SignIn";
+import { useState } from "react";
 
-  const AcessSign = () => {
-    if (showSignUp) setShowSignUp(false);
-    else setShowSignUp(true);
-  };
-  type AcessSignFunction = () => void; 
+
+export default async function Login() {
+    
+    const [ showSign, setShowSign ] = useState(false)
+    
+    const AcessSign = () => {
+        if (showSign) setShowSign(false)
+        else setShowSign(true) 
+    }
 
   return (
     <>
-      <div className={`flex flex-col content-center p-5 gap-7 flex-wrap`}>
-        {/* <SignUp AcessSign={AcessSign}/> */}
-        {showSignUp ? (
-          <SignUp AcessSign={AcessSign as AcessSignFunction} />
-        ) : (
-          <SignIn AcessSign={AcessSign as AcessSignFunction} />
-        )}
-      </div>
+        <SignIn AcessSign={() => AcessSign()} />
+        <div className="text-center">
+            <Button onClick={() => signIn("google")}>Login</Button>
+            <h1 className="text-white">Login Page</h1>
+        </div>
     </>
   );
 }

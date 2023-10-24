@@ -1,40 +1,38 @@
-import Login from './login/page';
-import Homepage from './pages/Homepage';
+import Auth from "@/pages/Auth";
+import Homepage from "@/pages/Homepage";
+import Login from "@/pages/Login";
 
-// const fetchData = async () => {
-//   try {
-//     const response = await fetch("http://localhost:3001/");
-//     const data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.error('Erro ao buscar dados:', error);
-//   }
-// }
+import { getCurrentUser } from "@/lib/session";
 
-export default function Home() {
-  const createUser = async () => {
-  
-    const response = await fetch("https://chatnext.azurewebsites.net/user/signup", {
-      method: "POST",
+const verifyToken = async (token: String) => {
+
+  const response = await fetch(
+    `http://localhost:3001/verifytoken/${token}`,
+    {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
-      },
-      // body: JSON.stringify(user)
-    });
-    const data = await response.json();
-    console.log(data);
-    localStorage.setItem('data', data)
-  
-  };
-  // const socket = io('http://localhost:3001')
-    const socket = new WebSocket('wss://chatnext.azurewebsites.net')
+      }
+    }
+  );
+  const data = await response.json();
+  console.log(data);
+  localStorage.setItem("data", data);
 
-  const logged = 0
+  // if (data) router.push("/");
+};
+
+export default async function Home() {
+
+  const user = await getCurrentUser()
+
+  // const socket = io('http://localhost:3001')
+  // const socket = new WebSocket('wss://chatnext.azurewebsites.net')
+  
   return (
     <>
-      <div className='p-4'>
-        {logged ? <Homepage /> : <Login />}
-      </div>
+      <h1 className="text-white">{JSON.stringify(user)}</h1>
+      {/* <Homepage /> */}
     </>
-  )
+  );
 }
