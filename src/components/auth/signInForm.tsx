@@ -18,6 +18,8 @@ import {
 import { useRouter } from 'next/navigation'
 import { use, useState } from "react";
 import { signIn } from "next-auth/react";
+import { ToastAction } from "@radix-ui/react-toast";
+
 
 // const createUser = async (user: ObjectParam) => {
 
@@ -45,14 +47,27 @@ const formSchema = z.object({
 });
 
 export default function Forms() {
-  
-  // async function onSubmit(data: z.infer<typeof formSchema>) {
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
+  const router = useRouter()
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data)
     setIsLoading(true)
 
-    const res = await signIn<'credentials'>('credentials')
+    const res = await signIn<'credentials'>('credentials', {
+      ...data,
+      redirect: false
+    })
 
+    if (res?.error) {
+      toast({
+        title: "Oooops...",
+        description: res.error,
+        variant: 'destructive',
+        action: (
+          <ToastAction altText="Try again">Try again</ToastAction>
+        )
+      });
+    } else router.push('/')
 
     setIsLoading(false)
   }
@@ -65,21 +80,7 @@ export default function Forms() {
     },
   });
 
-  // new code
-  interface IUser {
-    email: String,
-    password: String
-  }
-  const [data, setData] = useState<IUser>({
-    email: '',
-    password: ''
-  })
-
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const handleChange = () => {
-
-  }
 
   return (
     <Form {...form}>

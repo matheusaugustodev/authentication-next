@@ -8,32 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 
-import Forms from "./Forms";
+import Forms from "@/components/auth/signUpForm"
 
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const formSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(50, {
-      message: "Username must be at least 50 characters.",
-    }),
-});
-
-interface SignInProps {
-  AcessSign: () => void;
-}
-
-export default function SignUp({ AcessSign }: SignInProps) {
+export default function SignUp() {
   return (
-    <>
-      <Card className="w-full md:w-1/2">
+    <div className="w-full flex items-center flex-col gap-5 mt-10">
+      <Card className="w-4/5 md:w-1/3">
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardDescription>User your account</CardDescription>
@@ -42,15 +23,15 @@ export default function SignUp({ AcessSign }: SignInProps) {
           <Forms />
         </CardContent>
       </Card>
-      <Card className="w-full md:w-1/2">
+      <Card className="w-4/5 md:w-1/3">
         <CardHeader>
           <CardTitle>Do you have a account?</CardTitle>
           <CardDescription>Joy using your account</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
-          <Button onClick={AcessSign}>Sign In</Button>
+          <a href="/signin"><Button className="w-full">Sign In</Button></a>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 }
