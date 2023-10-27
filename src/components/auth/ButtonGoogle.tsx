@@ -1,7 +1,7 @@
 'use client'
 import { signIn } from "next-auth/react"
-import { Button } from "./ui/button"
-import { Icons } from "./ui/icons"
+import { Button } from "../ui/button"
+import { Icons } from "../ui/icons"
 
 export default async function ButtonGoogle() {
     return (

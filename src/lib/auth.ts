@@ -12,7 +12,7 @@ export const authOptions : NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET! 
+      clientSecret: process.env.GOOGLE_SECRET!
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
@@ -53,6 +53,22 @@ export const authOptions : NextAuthOptions = {
   debug: process.env.NODE_ENV === 'development',
   pages: {
     signIn: "/login"
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }): Promise<boolean> {
+      console.log(user)
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async session({ session, user, token }) {
+      return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      console.log(token)
+      return token
+    }
   }
 }
 const handler = NextAuth(authOptions)

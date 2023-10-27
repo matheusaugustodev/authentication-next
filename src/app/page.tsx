@@ -3,12 +3,6 @@ import NotLogged from "@/components/notlogged-page";
 import { redirect } from "next/navigation";
 import LoggedPage from "@/components/logged-page";
 
-interface UserType {
-  name: string,
-  email: string,
-  image: string
-}
-
 export default async function Home() {
 
   const user: any = await getCurrentUser()

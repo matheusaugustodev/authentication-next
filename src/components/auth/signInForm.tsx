@@ -21,22 +21,6 @@ import { signIn } from "next-auth/react";
 import { ToastAction } from "@radix-ui/react-toast";
 
 
-// const createUser = async (user: ObjectParam) => {
-
-//   const response = await fetch("https://chatnext.azurewebsites.net/user/singin", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(user)
-//   });
-//   const data = await response.json();
-//   console.log(data);
-//   localStorage.setItem('token', data)
-
-//   if (data) router.push('/')
-// };
-
 const formSchema = z.object({
   email: z.string().min(10, {
     message: "Invalid email.",

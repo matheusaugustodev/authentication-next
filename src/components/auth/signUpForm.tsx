@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from "react";
 import { ToastAction } from "@radix-ui/react-toast";
 
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -34,14 +35,6 @@ export default function Forms() {
   const router = useRouter();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
 
     console.log(data)
     setIsLoading(true)
